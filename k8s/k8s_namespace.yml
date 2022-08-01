@@ -1,0 +1,5 @@
+# Deploy en el mismo namespace en distintos AKS según el ambiente
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: devsu

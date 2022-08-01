@@ -1,0 +1,38 @@
+# Deploy en el mismo namespace en distintos AKS según el ambiente
+apiVersion: v1
+kind: Service
+metadata:
+  name: devsu
+  namespace: devsu
+  labels:
+    app: devsu
+spec:
+  ports:
+    - port: 9090
+      targetPort: 9091
+  selector:
+    app: devsu
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsu
+  namespace: devsu
+  labels:
+    app: devsu
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devsu
+  template:
+    metadata:
+      labels:
+        app: devsu
+    spec:
+      containers:
+      - name: devsu
+        image: stevenoliva/devsu-pichincha:latest
+        ports:
+        - containerPort: 9091

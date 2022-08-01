@@ -1,0 +1,13 @@
+# Deploy en el mismo namespace en distintos AKS según el ambiente
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-devsu
+  namespace: devsu
+spec:
+  selector:
+    app: devsu
+  ports:
+    - port: 80
+      targetPort: 9091
+  type: LoadBalancer
